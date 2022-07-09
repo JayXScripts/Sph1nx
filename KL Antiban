@@ -1,0 +1,165 @@
+
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local AntiBan = Instance.new("TextButton")
+local ExitGui = Instance.new("TextButton")
+local TextLabel = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.Position = UDim2.new(0.148731679, 0, 0.275501728, 0)
+Frame.Size = UDim2.new(0, 100, 0, 74)
+Frame.Active = true
+Frame.Draggable = true
+
+AntiBan.Name = "AntiBan"
+AntiBan.Parent = Frame
+AntiBan.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+AntiBan.Position = UDim2.new(0, 0, 0.542567492, 0)
+AntiBan.Size = UDim2.new(0, 100, 0, 32)
+AntiBan.Font = Enum.Font.SourceSans
+AntiBan.Text = "AntiBan"
+AntiBan.TextColor3 = Color3.fromRGB(245, 0, 0)
+AntiBan.TextSize = 31.000
+AntiBan.TextStrokeColor3 = Color3.fromRGB(225, 0, 0)
+AntiBan.MouseButton1Click:Connect(function(NOBAN)
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "Anti-Ban";
+		Text = "Enabled safety protocols";
+		Duration = 20;
+	})
+
+	Players = game:GetService("Players")
+	for _, player in pairs(Players:GetPlayers()) do
+		-- this code will run for all players
+		if player.UserId == 991117111 or player.UserId == 394373295 or player.UserId == 1208533506 or player.UserId == 8405402 or player.UserId == 154551041 or player.UserId == 154914543 or player.UserId == 759098623 or player.UserId == 1909623504 or player.UserId == 604717349 or player.UserId == 390651802 or player.UserId == 85696426 or player.UserId == 49142499 or player.UserId == 47936111 or player.UserId == 170204970 or player.UserId == 1604786823 or player.UserId == 1274826528 or player.UserId == 2227755237 then  
+			wait(1)
+			local plr = game:GetService('Players').LocalPlayer
+			plr:Kick('KICKED TO AVOID ADMIN-BAN (Admin in server) =)')
+
+		else
+			print('Safe')
+		end
+	end
+
+
+	local AdminList = { 
+		991117111,  -- DinoxLive      
+		394373295,   -- Peodiz
+		1208533506,    -- DiscoInwZa007  
+		8405402,  -- DragoTheDev    
+		154551041,  -- BrownSun_flower
+		154914543, -- ZeroToEnd 
+		759098623, -- Polyraris 
+		1909623504,  -- YoExile
+		604717349, -- SimplyArthur
+		390651802,  -- HGB2004
+		85696426,   -- piknishi
+		49142499,  -- ii_ArunXz
+		47936111,  --NotWoodSama
+		170204970,  -- Tr4p_Sama
+		1604786823,  -- Conqering
+		1274826528,  -- Foxdamyeet
+		2227755237,  -- Qnwxx
+
+
+	}
+
+	game.Players.PlayerAdded:Connect(function(player)
+		for i, v in pairs(AdminList) do
+			if player.UserId == v then
+				game.StarterGui:SetCore("SendNotification", {
+					Title = "Anti-Ban";
+					Text = "An admin has joined.. kicking!";
+					Duration = 20;
+				})
+				wait(2)
+				plr:Kick('KICKED TO AVOID ADMIN-BAN (Admin joined) =)')
+
+			end
+		end
+	end)
+	end)
+
+ExitGui.Name = "Exit Gui"
+ExitGui.Parent = Frame
+ExitGui.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+ExitGui.Position = UDim2.new(0.649999976, 0, 0, 0)
+ExitGui.Size = UDim2.new(0, 35, 0, 40)
+ExitGui.Font = Enum.Font.SourceSans
+ExitGui.Text = "X"
+ExitGui.TextColor3 = Color3.fromRGB(208, 0, 0)
+ExitGui.TextSize = 49.000
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(0, 65, 0, 40)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "KL EvnX"
+TextLabel.TextColor3 = Color3.fromRGB(197, 0, 0)
+TextLabel.TextSize = 22.000
+TextLabel.TextWrapped = true
+
+-- Scripts:
+
+local function TWICUXH_fake_script() -- Frame.LocalScript 
+	local script = Instance.new('LocalScript', Frame)
+
+	local UserInputService = game:GetService("UserInputService")
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = gui:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y), 'Out', 'Linear', 0, true); -- drag speed
+	end
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+	
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
+end
+coroutine.wrap(TWICUXH_fake_script)()
+local function XDDOG_fake_script() -- ExitGui.LocalScript 
+	local script = Instance.new('LocalScript', ExitGui)
+
+	local frame = script.Parent.Parent
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		frame.Visible = false
+	end)
+end
+coroutine.wrap(XDDOG_fake_script)()
